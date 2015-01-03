@@ -7,6 +7,11 @@
 //
 
 #import "HistoryTableViewController.h"
+#import "TrickDetailTableViewController.h"
+#import "TrickDataBaseManager.h"
+#import "Trick.h"
+#import <Foundation/Foundation.h>
+#import "NSDate+TimeAgo.h"
 
 @interface HistoryTableViewController ()
 
@@ -18,7 +23,7 @@
     [super viewDidLoad];
     
     if(!self.tableData) {
-        self.tableData = [[NSMutableArray alloc]initWithObjects:@"Kickflip",@"Heelflip", nil];
+        self.tableData = [TrickDataBaseManager sharedInstance].tricks;
     }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -26,6 +31,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -49,14 +55,25 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"trickItems" ];
-    UILabel *label = (UILabel *)[cell viewWithTag:1];
-    NSString *str = [self.tableData objectAtIndex:indexPath.row];
     
-    label.text = str;
+    UILabel *postContent = (UILabel *)[cell viewWithTag:1];
+    UILabel *postTime = (UILabel *)[cell viewWithTag:2];
+
+    Trick *trick = (Trick*)[self.tableData objectAtIndex:indexPath.row];
     
+    postTime.text = [trick.dateAdded timeAgo];
+    postContent.text = [NSString stringWithFormat:@"'%@' did '%@'" ,trick.performer,trick.name];
     return cell;
 }
 
+
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    TrickDetailTableViewController *trickDetailView = (TrickDetailTableViewController*)[segue destinationViewController];
+    Trick *trick = (Trick*)[self.tableData objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+    trickDetailView.trick = trick;
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -93,13 +110,6 @@
 */
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
 */
 
 @end

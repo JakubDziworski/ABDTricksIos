@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
+#import "TrickDataBaseManager.h"
+#import <Parse/Parse.h>
 @interface AppDelegate ()
 
 @end
@@ -17,6 +18,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [Parse enableLocalDatastore];
+    
+    // Initialize Parse.
+    [Parse setApplicationId:@"nyDTxqbe8GdlE3BHPIpV2AnP3P0mhBH6WYa8NPPk"
+                  clientKey:@"ttyLd51f058X17WtJFInwTse7Ri5rpQ3oTSJeJ2T"];
+    
+    // [Optional] Track statistics around application opens.
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    [TrickDataBaseManager sharedInstance];
     return YES;
 }
 

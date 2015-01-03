@@ -7,9 +7,12 @@
 //
 
 #import "SubmitTrickViewController.h"
+#import "Trick.h"
+#import "TrickDataBaseManager.h"
+#import <MapKit/MapKit.h>
 
 @interface SubmitTrickViewController ()
-
+@property CLLocationCoordinate2D location;
 @property NSMutableArray *data;
 @end
 
@@ -65,9 +68,19 @@
 
 - (IBAction)onSubmitButtonClicked:(id)sender {
     if([self verifyFields] == YES){
+        Trick *trick = [[Trick alloc]init];
+        trick.name = self.trickNameTextField.text;
+        trick.performer = self.performerNameTextField.text;
+        [[TrickDataBaseManager sharedInstance] addTrick:trick];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank you" message:@"Your Trick has been submitted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
+}
+- (void)onReceviedLocation:(CLLocationCoordinate2D) locationn{
+    self.location = locationn;
+    self.locationVerifiedImage.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    [UIView animateWithDuration:0.3 delay:0.6 options:UIViewAnimationOptionCurveEaseOut animations:^{self.locationVerifiedImage.transform = CGAffineTransformIdentity;} completion:nil];
+    self.locationVerifiedImage.alpha = 1;
 }
 - (BOOL) verifyFields {
     

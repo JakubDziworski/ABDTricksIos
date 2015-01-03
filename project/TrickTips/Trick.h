@@ -13,10 +13,11 @@
 
 @property NSString *name;
 @property NSString *performer;
-@property NSString  *submitter;
+@property NSString *submitter;
 @property NSString *whereToSee;
 @property NSString *additonalInfo;
 @property NSDate *date;
+@property NSDate *dateAdded;
 @property SkateSpot* skateSpot;
 
 -(id) initWithName:(NSString *)name_
