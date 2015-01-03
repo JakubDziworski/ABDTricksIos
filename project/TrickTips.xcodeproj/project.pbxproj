@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		8C54BBCF1A56DB14003575C7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C54BBCE1A56DB14003575C7 /* MapKit.framework */; };
+		8C7F97FD1A5806C60044B80E /* HistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F97FC1A5806C60044B80E /* HistoryTableViewController.m */; };
+		8C87DC8D1A57E35800E50077 /* sample_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C87DC8C1A57E35800E50077 /* sample_data.json */; };
+		8C9105281A570374004F21CD /* Trick.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9105271A570374004F21CD /* Trick.m */; };
+		8C91052B1A570521004F21CD /* SkateSpot.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C91052A1A570521004F21CD /* SkateSpot.m */; };
+		8C91052E1A570F0F004F21CD /* SubmitTrickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C91052D1A570F0F004F21CD /* SubmitTrickViewController.m */; };
+		8C9105321A571767004F21CD /* AutocompletedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9105311A571767004F21CD /* AutocompletedTextField.m */; };
 		8CA010E01A56881200A624EA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA010DF1A56881200A624EA /* main.m */; };
 		8CA010E31A56881200A624EA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA010E21A56881200A624EA /* AppDelegate.m */; };
 		8CA010E61A56881200A624EA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA010E51A56881200A624EA /* ViewController.m */; };
@@ -29,6 +35,17 @@
 
 /* Begin PBXFileReference section */
 		8C54BBCE1A56DB14003575C7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8C7F97FB1A5806C60044B80E /* HistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewController.h; sourceTree = "<group>"; };
+		8C7F97FC1A5806C60044B80E /* HistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewController.m; sourceTree = "<group>"; };
+		8C87DC8C1A57E35800E50077 /* sample_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_data.json; sourceTree = "<group>"; };
+		8C9105261A570374004F21CD /* Trick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trick.h; sourceTree = "<group>"; };
+		8C9105271A570374004F21CD /* Trick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trick.m; sourceTree = "<group>"; };
+		8C9105291A570521004F21CD /* SkateSpot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkateSpot.h; sourceTree = "<group>"; };
+		8C91052A1A570521004F21CD /* SkateSpot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkateSpot.m; sourceTree = "<group>"; };
+		8C91052C1A570F0F004F21CD /* SubmitTrickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitTrickViewController.h; sourceTree = "<group>"; };
+		8C91052D1A570F0F004F21CD /* SubmitTrickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitTrickViewController.m; sourceTree = "<group>"; };
+		8C9105301A571767004F21CD /* AutocompletedTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutocompletedTextField.h; sourceTree = "<group>"; };
+		8C9105311A571767004F21CD /* AutocompletedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutocompletedTextField.m; sourceTree = "<group>"; };
 		8CA010DA1A56881200A624EA /* TrickTips.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrickTips.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA010DE1A56881200A624EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CA010DF1A56881200A624EA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -63,6 +80,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C87DC8B1A57E34300E50077 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8C87DC8C1A57E35800E50077 /* sample_data.json */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		8C9105251A570351004F21CD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8C9105261A570374004F21CD /* Trick.h */,
+				8C9105271A570374004F21CD /* Trick.m */,
+				8C9105291A570521004F21CD /* SkateSpot.h */,
+				8C91052A1A570521004F21CD /* SkateSpot.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		8C91052F1A57173D004F21CD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				8C9105301A571767004F21CD /* AutocompletedTextField.h */,
+				8C9105311A571767004F21CD /* AutocompletedTextField.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		8CA010D11A56881100A624EA = {
 			isa = PBXGroup;
 			children = (
@@ -85,7 +130,10 @@
 		8CA010DC1A56881200A624EA /* TrickTips */ = {
 			isa = PBXGroup;
 			children = (
+				8C87DC8B1A57E34300E50077 /* Resources */,
+				8C91052F1A57173D004F21CD /* Utils */,
 				8CA010E11A56881200A624EA /* AppDelegate.h */,
+				8C9105251A570351004F21CD /* Model */,
 				8CA010E21A56881200A624EA /* AppDelegate.m */,
 				8CA010E41A56881200A624EA /* ViewController.h */,
 				8CA010E51A56881200A624EA /* ViewController.m */,
@@ -93,6 +141,10 @@
 				8CA010EA1A56881200A624EA /* Images.xcassets */,
 				8CA010EC1A56881200A624EA /* LaunchScreen.xib */,
 				8CA010DD1A56881200A624EA /* Supporting Files */,
+				8C91052C1A570F0F004F21CD /* SubmitTrickViewController.h */,
+				8C91052D1A570F0F004F21CD /* SubmitTrickViewController.m */,
+				8C7F97FB1A5806C60044B80E /* HistoryTableViewController.h */,
+				8C7F97FC1A5806C60044B80E /* HistoryTableViewController.m */,
 			);
 			path = TrickTips;
 			sourceTree = "<group>";
@@ -206,6 +258,7 @@
 				8CA010E91A56881200A624EA /* Main.storyboard in Resources */,
 				8CA010EE1A56881200A624EA /* LaunchScreen.xib in Resources */,
 				8CA010EB1A56881200A624EA /* Images.xcassets in Resources */,
+				8C87DC8D1A57E35800E50077 /* sample_data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,9 +276,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C7F97FD1A5806C60044B80E /* HistoryTableViewController.m in Sources */,
 				8CA010E61A56881200A624EA /* ViewController.m in Sources */,
 				8CA010E31A56881200A624EA /* AppDelegate.m in Sources */,
+				8C91052E1A570F0F004F21CD /* SubmitTrickViewController.m in Sources */,
+				8C9105321A571767004F21CD /* AutocompletedTextField.m in Sources */,
 				8CA010E01A56881200A624EA /* main.m in Sources */,
+				8C91052B1A570521004F21CD /* SkateSpot.m in Sources */,
+				8C9105281A570374004F21CD /* Trick.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
