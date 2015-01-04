@@ -51,6 +51,7 @@
         trick.additonalInfo = self.additionalInfoTextField.text;
         trick.dateAdded = [NSDate date];
         trick.skateSpot = self.spot;
+        if(!trick.skateSpot.name) trick.skateSpot.name = self.spotNameTextField.text;
         [[TrickDataBaseManager sharedInstance] addTrick:trick];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank you" message:@"Your Trick has been submitted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
@@ -58,7 +59,9 @@
 }
 - (void)onReceviedLocationWithSkateSpot:(SkateSpot*) skatespot {
     self.spot = skatespot;
-    self.spotNameTextField.text = skatespot.name;
+    if(skatespot.name) {
+        self.spotNameTextField.text = skatespot.name;
+    }
     self.locationSet = YES;
     self.locationVerifiedImage.transform = CGAffineTransformMakeScale(0.01, 0.01);
     [UIView animateWithDuration:0.3 delay:0.6 options:UIViewAnimationOptionCurveEaseOut animations:^{self.locationVerifiedImage.transform = CGAffineTransformIdentity;} completion:nil];
