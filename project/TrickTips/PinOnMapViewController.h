@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-@interface PinOnMapViewController : UIViewController <MKMapViewDelegate,MKAnnotation>
+#include "ABDsOnMapViewController.h"
+@interface PinOnMapViewController : ABDsOnMapViewController
 - (IBAction)onAcceptButtonClicked:(id)sender;
-@property (weak, nonatomic) IBOutlet MKMapView *mapview;
 
 @end

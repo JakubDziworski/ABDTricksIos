@@ -55,6 +55,7 @@
 
 @property SkateSpot* focusedSpot;
 @property (strong)SpotAnnotationMap* spotzz;
+
 @end
 
 @implementation ABDsOnMapViewController
@@ -64,8 +65,6 @@
     self.spotzz = [[SpotAnnotationMap alloc]init];
     self.mapView.delegate=self;
     [[TrickDataBaseManager sharedInstance] fetchLatestWithTarget:self];
-    
-    
     // Do any additional setup after loading the view.
 }
 
@@ -90,7 +89,9 @@
 - (void) onFetchedTrick:(Trick *)trick {
 
 }
-
+- (SkateSpot*) getSpotForAnnotation:(MKPointAnnotation*)annotation{
+    return [self.spotzz spotForAnnotation:annotation];
+}
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
     if (annotation == mapView.userLocation) return nil;
@@ -121,6 +122,7 @@
     [self.mapView setVisibleMapRect:r animated:YES];
     [self.mapView selectAnnotation:annotation animated:YES];
 }
+
 /*
 #pragma mark - Navigation
 

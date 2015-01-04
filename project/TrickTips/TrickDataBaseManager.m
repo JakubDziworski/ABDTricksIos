@@ -83,15 +83,20 @@
 }
 
 - (PFObject *) convertTrickToPfObject: (Trick *) trick {
-    PFObject *pfSkateSpot = [PFObject objectWithClassName:@"SkateSpot"];
     PFObject *pfTrick = [PFObject objectWithClassName:@"Trick"];
-    pfSkateSpot[@"name"] = trick.skateSpot.name;
-    pfSkateSpot[@"location"] = [PFGeoPoint geoPointWithLatitude:trick.skateSpot.location.latitude longitude:trick.skateSpot.location.longitude];
+    if(trick.skateSpot.parseId){
+        pfTrick[@"skateSpot"] = [PFObject objectWithoutDataWithClassName:@"SkateSpot" objectId:trick.skateSpot.parseId];
+    }
+    else {
+        PFObject *pfSkateSpot = [PFObject objectWithClassName:@"SkateSpot"];
+        pfSkateSpot[@"name"] = trick.skateSpot.name;
+        pfSkateSpot[@"location"] = [PFGeoPoint geoPointWithLatitude:trick.skateSpot.location.latitude longitude:trick.skateSpot.location.longitude];
+        pfTrick[@"skateSpot"] = pfSkateSpot;
+    }
     pfTrick[@"name"] = trick.name;
     pfTrick[@"performer"] = trick.performer;
     pfTrick[@"whereToSee"] = trick.whereToSee;
     pfTrick[@"additionalInfo"] = trick.additonalInfo;
-    pfTrick[@"skateSpot"] = pfSkateSpot;
     return pfTrick;
 }
 - (void) addTrick:(Trick *)trick_ {

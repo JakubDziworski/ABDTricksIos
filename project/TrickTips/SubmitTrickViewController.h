@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import <CoreLocation/CLLocation.h>
-
+#import "SkateSpot.h"
 @interface SubmitTrickViewController : UITableViewController  <UITextViewDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *trickNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *performerNameTextField;
@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *additionalInfoTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *locationVerifiedImage;
 - (IBAction)onSubmitButtonClicked:(id)sender;
-- (void)onReceviedLocation:(CLLocationCoordinate2D) locationn;
+- (void)onReceviedLocationWithSkateSpot:(SkateSpot*) skatespot;
 
 @end
 

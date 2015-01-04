@@ -345,12 +345,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mapview" destination="F4m-iq-VYi" id="rHY-Kt-nLe"/>
+                        <outlet property="mapView" destination="F4m-iq-VYi" id="Cc1-nF-B0b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WzN-M5-t4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2736" y="1191"/>
+            <point key="canvasLocation" x="2832" y="1164"/>
         </scene>
         <!--Trick Detail Table View Controller-->
         <scene sceneID="QxA-Gb-NdQ">

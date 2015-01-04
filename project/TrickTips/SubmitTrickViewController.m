@@ -13,15 +13,15 @@
 #import <MapKit/MapKit.h>
 
 @interface SubmitTrickViewController ()
-@property CLLocationCoordinate2D location;
-@property NSMutableArray *data;
+@property SkateSpot *spot;
+@property BOOL locationSet;
 @end
 
 @implementation SubmitTrickViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.location = kCLLocationCoordinate2DInvalid;
+    self.locationSet = NO;
     self.trickNameTextField.delegate = self;
     self.performerNameTextField.delegate = self;
     self.spotNameTextField.delegate = self;
@@ -43,21 +43,23 @@
 
 - (IBAction)onSubmitButtonClicked:(id)sender {
     if([self verifyFields] == YES){
-        SkateSpot *spot = [[SkateSpot alloc]initWithName:self.spotNameTextField.text location:self.location];
+        //SkateSpot *spot = [[SkateSpot alloc]initWithName:self.spotNameTextField.text location:self.location];
         Trick *trick = [[Trick alloc]init];
         trick.name = self.trickNameTextField.text;
         trick.performer = self.performerNameTextField.text;
         trick.whereToSee = self.wherePublishedTextField.text;
         trick.additonalInfo = self.additionalInfoTextField.text;
         trick.dateAdded = [NSDate date];
-        trick.skateSpot = spot;
+        trick.skateSpot = self.spot;
         [[TrickDataBaseManager sharedInstance] addTrick:trick];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank you" message:@"Your Trick has been submitted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
 }
-- (void)onReceviedLocation:(CLLocationCoordinate2D) locationn {
-    self.location = locationn;
+- (void)onReceviedLocationWithSkateSpot:(SkateSpot*) skatespot {
+    self.spot = skatespot;
+    self.spotNameTextField.text = skatespot.name;
+    self.locationSet = YES;
     self.locationVerifiedImage.transform = CGAffineTransformMakeScale(0.01, 0.01);
     [UIView animateWithDuration:0.3 delay:0.6 options:UIViewAnimationOptionCurveEaseOut animations:^{self.locationVerifiedImage.transform = CGAffineTransformIdentity;} completion:nil];
     self.locationVerifiedImage.alpha = 1;
@@ -78,7 +80,7 @@
         errorStr = [errorStr stringByAppendingString: @"\nEnter Who did the trick"];
         result = NO;
     }
-    if(!CLLocationCoordinate2DIsValid(self.location)) {
+    if(!self.locationSet) {
         errorStr = [errorStr stringByAppendingString: @"\nEnter spot location"];
         result = NO;
     }
