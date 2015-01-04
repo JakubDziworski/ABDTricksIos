@@ -9,19 +9,62 @@
 #import "RecentTricksOnSpotViewController.h"
 #import "ABDsOnMapViewController.h"
 
+@interface SpotAnnotationMap : NSObject
+
+@property (strong) NSMutableArray *spotsArr;
+@property (strong) NSMutableArray *anntArr;
+-(SkateSpot*) spotForAnnotation: (MKPointAnnotation*)mkAnn;
+-(MKPointAnnotation*) annotationForSpot: (SkateSpot*)spt;
+-(void) addSkateSpot: (SkateSpot*)spt andAdnot:(MKPointAnnotation*)mkPtAnot;
+@end
+
+@implementation SpotAnnotationMap
+-(void) addSkateSpot: (SkateSpot*)spt andAdnot:(MKPointAnnotation*)mkPtAnot {
+    [self.spotsArr addObject:spt];
+    [self.anntArr addObject:mkPtAnot];
+}
+-(SkateSpot*) spotForAnnotation: (MKPointAnnotation*)mkAnn {
+    NSUInteger i =0;
+    for (MKPointAnnotation* ann in self.anntArr) {
+        if(ann == mkAnn) return [self.spotsArr objectAtIndex:i];
+        i++;
+    }
+    return nil;
+}
+-(MKPointAnnotation*) annotationForSpot: (SkateSpot*)sptt {
+    NSUInteger i =0;
+    for (SkateSpot* spt in self.spotsArr) {
+        if(spt == sptt) return [self.anntArr objectAtIndex:i];
+        i++;
+    }
+  return nil;
+}
+
+-(id) init {
+    if(self = [super init])
+    {
+        self.spotsArr = [[NSMutableArray alloc] init];
+        self.anntArr = [[NSMutableArray alloc] init];
+        return self;
+    }
+    return nil;
+}
+
+@end
 @interface ABDsOnMapViewController ()
 
-@property NSMutableDictionary* buttonSpotDict;
+@property SkateSpot* focusedSpot;
+@property (strong)SpotAnnotationMap* spotzz;
 @end
 
 @implementation ABDsOnMapViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.buttonSpotDict = [[NSMutableDictionary alloc]init];
+    self.spotzz = [[SpotAnnotationMap alloc]init];
     self.mapView.delegate=self;
-
     [self preparePins];
+    if(self.focusedSpot) [self executeFocusingOnSpot];
     
     // Do any additional setup after loading the view.
 }
@@ -29,6 +72,7 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
 }
 
 - (void) preparePins {
@@ -38,7 +82,7 @@
         MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
         point.coordinate = spot.location;
         point.title = spot.name;
-        [self.buttonSpotDict setObject:spot forKey:spot.name];
+        [self.spotzz addSkateSpot:spot andAdnot:point];
         [self.mapView addAnnotation:point];
     }
 }
@@ -58,15 +102,21 @@
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     RecentTricksOnSpotViewController *recentTrickVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RecentTricksOnSpotViewController"];
-    recentTrickVC.spot =[self.buttonSpotDict objectForKey: view.annotation.title];
+    recentTrickVC.spot =[self.spotzz spotForAnnotation:view.annotation];
     [self.navigationController pushViewController:recentTrickVC animated:YES];
-   // [self dismissViewControllerAnimated:YES completion:nil];
 }
-- (IBAction)openDetail:(id)sender {
-  
-}
+
 - (void) focusOnSpot:(SkateSpot *)skateSpot {
-    
+    self.focusedSpot = skateSpot;
+}
+
+-(void) executeFocusingOnSpot {
+    MKPointAnnotation *annotation = [self.spotzz annotationForSpot:self.focusedSpot];
+    MKMapPoint pt = MKMapPointForCoordinate(annotation.coordinate);
+    MKMapRect r= MKMapRectMake(pt.x, pt.y, 200, 200);
+    //r.origin.x = pt.x - r.size.width*0.5;
+    //r.origin.y = pt.y - r.size.height*0.25;
+    [self.mapView setVisibleMapRect:r animated:YES];
 }
 /*
 #pragma mark - Navigation

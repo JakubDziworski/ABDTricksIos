@@ -211,32 +211,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="f3F-l3-J91">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f3F-l3-J91" id="pdl-i7-3aV">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When (optional)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sX7-a5-7lZ">
-                                                    <rect key="frame" x="13" y="11" width="120" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pqb-cN-9r7">
-                                                    <rect key="frame" x="141" y="7" width="446" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="sX7-a5-7lZ" firstAttribute="leading" secondItem="pdl-i7-3aV" secondAttribute="leadingMargin" constant="5" id="1Ny-Mr-7GM"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Pqb-cN-9r7" secondAttribute="trailing" constant="5" id="eO0-Ry-wGi"/>
-                                                <constraint firstAttribute="centerY" secondItem="sX7-a5-7lZ" secondAttribute="centerY" id="eeZ-fy-ds3"/>
-                                                <constraint firstItem="Pqb-cN-9r7" firstAttribute="leading" secondItem="sX7-a5-7lZ" secondAttribute="trailing" constant="8" id="moq-Nd-pGb"/>
-                                                <constraint firstAttribute="centerY" secondItem="Pqb-cN-9r7" secondAttribute="centerY" id="oi3-pW-tL9"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="TV9-Eb-EST">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TV9-Eb-EST" id="TsR-5i-wvH">
@@ -712,6 +686,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Recent Tricks on this spot" id="o0U-gz-l42"/>
+                    <connections>
+                        <outlet property="titleItem" destination="o0U-gz-l42" id="ZZK-kr-QBn"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5MR-5k-FQ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

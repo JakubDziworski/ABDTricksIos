@@ -17,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.titleItem.title = self.spot.name;
 }
 
 -(NSArray*) populateData {
