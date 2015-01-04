@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SkateSpot.h"
 
-@class SkateSpot;
 @interface Trick : NSObject
 
 @property NSString *name;

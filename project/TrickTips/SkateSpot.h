@@ -7,12 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MapKit/MapKit.h>
-
+#import <CoreLocation/CLLocation.h>
 @interface SkateSpot : NSObject
 @property NSString *name;
-@property MKMapItem *location;
+@property CLLocationCoordinate2D location;
 
 -(id) initWithName:(NSString *) name_
-          location:(MKMapItem *)location_;
+          location:(CLLocationCoordinate2D)location_;
 @end

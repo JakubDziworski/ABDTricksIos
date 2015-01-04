@@ -7,6 +7,7 @@
 //
 
 #import "Trick.h"
+#import "SkateSpot.h"
 
 @implementation Trick
 

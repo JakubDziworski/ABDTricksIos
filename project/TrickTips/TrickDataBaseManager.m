@@ -10,7 +10,6 @@
 #import "Trick.h"
 #import <Parse/Parse.h>
 
-
 @implementation TrickDataBaseManager
 
 @synthesize tricks = _tricks;
@@ -33,7 +32,7 @@
         if (!error) {
             // The find succeeded. Add the returned objects to allObjects
             for(PFObject *obj in objects){
-                [_tricks addObject:  [self convertPFObjectToTrick:obj]];
+                [self convertPFObjectToTrick:obj];
             }
             if (objects.count == limit) {
                 // There might be more objects in the table. Update the skip value and execute the query again.
@@ -48,18 +47,39 @@
                  }
                  }];
 }
-- (Trick*) convertPFObjectToTrick: (PFObject* )pfobject {
-    Trick *trick = [[Trick alloc] init];
-    trick.name = [pfobject objectForKey:@"name"];
-    trick.performer = [pfobject objectForKey:@"performer"];
-    trick.dateAdded = pfobject.createdAt;
-    return trick;
+- (void) convertPFObjectToTrick: (PFObject* )pfTrick {
+    SkateSpot *spot = [[SkateSpot alloc]init];
+    PFObject *pfSpot = [pfTrick objectForKey:@"skateSpot"];
+    [pfSpot fetchIfNeededInBackgroundWithBlock:^(PFObject *pSpot, NSError *error) {
+        Trick *trick = [[Trick alloc] init];
+        spot.name = [pSpot objectForKey:@"name"];
+        PFGeoPoint *location = [pSpot objectForKey:@"location"];
+        spot.location = [[CLLocation alloc]initWithLatitude:location.latitude longitude:location.longitude].coordinate;
+        trick.name = [pfTrick objectForKey:@"name"];
+        trick.performer = [pfTrick objectForKey:@"performer"];
+        trick.whereToSee = [pfTrick objectForKey:@"whereToSee"];
+        trick.additonalInfo = [pfTrick objectForKey:@"additionalInfo"];
+        trick.skateSpot = spot;
+        trick.dateAdded = pfTrick.createdAt;
+        [self onFetchedTrick:trick];
+    }];
 }
+
+- (void) onFetchedTrick: (Trick *)trick {
+    [self.tricks addObject:trick];
+}
+
 - (PFObject *) convertTrickToPfObject: (Trick *) trick {
-    PFObject *pfobject = [PFObject objectWithClassName:@"Trick"];
-    pfobject[@"name"]=trick.name;
-    pfobject[@"performer"]=trick.performer;
-    return pfobject;
+    PFObject *pfSkateSpot = [PFObject objectWithClassName:@"SkateSpot"];
+    PFObject *pfTrick = [PFObject objectWithClassName:@"Trick"];
+    pfSkateSpot[@"name"] = trick.skateSpot.name;
+    pfSkateSpot[@"location"] = [PFGeoPoint geoPointWithLatitude:trick.skateSpot.location.latitude longitude:trick.skateSpot.location.longitude];
+    pfTrick[@"name"] = trick.name;
+    pfTrick[@"performer"] = trick.performer;
+    pfTrick[@"whereToSee"] = trick.whereToSee;
+    pfTrick[@"additionalInfo"] = trick.additonalInfo;
+    pfTrick[@"skateSpot"] = pfSkateSpot;
+    return pfTrick;
 }
 - (void) addTrick:(Trick *)trick_ {
     [_tricks addObject:trick_];

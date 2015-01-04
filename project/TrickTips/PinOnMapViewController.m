@@ -63,12 +63,5 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No skate spot location set" message:@"Put a pin on a map (long press)" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
-
-    
-    
-//    test2AfterLogging *afterLoginController = [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"test2AfterLogging"];
-//    [afterLoginController setLogin:self.loginTextField.text];
-//    [self.navigationController pushViewController:afterLoginController animated:YES];
-//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

@@ -8,6 +8,7 @@
 
 #import "TrickDetailTableViewController.h"
 #import "Trick.h"
+#import "ABDsOnMapViewController.h"
 @interface TrickDetailTableViewController ()
 
 @end
@@ -17,13 +18,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"MMM dd, yyyy HH:mm"];
+    NSString *dateString = [format stringFromDate:self.trick.dateAdded];
+    
+    self.dataAddedTextField.text = dateString;
     self.trickNameTextField.text = self.trick.name;
     self.pertformerTextField.text = self.trick.performer;
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.spotNameTextField.text = self.trick.skateSpot.name;
+    self.publishedTextField.text = self.trick.whereToSee;
+    self.additionalInfoTextField.text = self.trick.additonalInfo;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,8 +36,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
-- (IBAction)seeOnMapButtonClicked:(id)sender {
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ABDsOnMapViewController *mapView = segue.destinationViewController;
+    [mapView focusOnSpot:self.trick.skateSpot];
 }
 @end

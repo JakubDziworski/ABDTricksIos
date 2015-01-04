@@ -10,7 +10,7 @@
 
 @implementation SkateSpot
 -(id) initWithName:(NSString *) name_
-          location:(MKMapItem *)location_
+          location:(CLLocationCoordinate2D)location_
 {
     if(self = [super init])
     {

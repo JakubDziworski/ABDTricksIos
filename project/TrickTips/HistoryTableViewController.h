@@ -10,5 +10,6 @@
 
 @interface HistoryTableViewController : UITableViewController <UITableViewDelegate,UITableViewDataSource>
 
-@property (strong,nonatomic) NSMutableArray *tableData;
+@property (strong,nonatomic) NSArray *tableData;
+-(NSArray*) populateData;
 @end

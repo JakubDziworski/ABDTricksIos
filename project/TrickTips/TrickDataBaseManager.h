@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 @class Trick;
-@class SkateSpot;
-
 @interface TrickDataBaseManager : NSObject {
     NSMutableArray *_tricks;
 }

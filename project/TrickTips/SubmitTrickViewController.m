@@ -8,6 +8,7 @@
 
 #import "SubmitTrickViewController.h"
 #import "Trick.h"
+#import "SkateSpot.h"
 #import "TrickDataBaseManager.h"
 #import <MapKit/MapKit.h>
 
@@ -47,6 +48,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.location = kCLLocationCoordinate2DInvalid;
     [self generateData];
     self.trickNameTextField.delegate = self;
     self.performerNameTextField.delegate = self;
@@ -68,15 +70,20 @@
 
 - (IBAction)onSubmitButtonClicked:(id)sender {
     if([self verifyFields] == YES){
+        SkateSpot *spot = [[SkateSpot alloc]initWithName:self.spotNameTextField.text location:self.location];
         Trick *trick = [[Trick alloc]init];
         trick.name = self.trickNameTextField.text;
         trick.performer = self.performerNameTextField.text;
+        trick.whereToSee = self.wherePublishedTextField.text;
+        trick.additonalInfo = self.additionalInfoTextField.text;
+        trick.dateAdded = [NSDate date];
+        trick.skateSpot = spot;
         [[TrickDataBaseManager sharedInstance] addTrick:trick];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank you" message:@"Your Trick has been submitted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
 }
-- (void)onReceviedLocation:(CLLocationCoordinate2D) locationn{
+- (void)onReceviedLocation:(CLLocationCoordinate2D) locationn {
     self.location = locationn;
     self.locationVerifiedImage.transform = CGAffineTransformMakeScale(0.01, 0.01);
     [UIView animateWithDuration:0.3 delay:0.6 options:UIViewAnimationOptionCurveEaseOut animations:^{self.locationVerifiedImage.transform = CGAffineTransformIdentity;} completion:nil];
@@ -86,16 +93,20 @@
     
     NSString *errorStr =  @"";
     BOOL result = YES;
-    if ([self.trickNameTextField.text isEqualToString:@""]){
+    if ([self.trickNameTextField.text isEqualToString:@""]) {
         errorStr = [errorStr stringByAppendingString: @"Enter Trick Name"];
         result = NO;
     }
-    if ([self.spotNameTextField.text isEqualToString:@""]){
+    if ([self.spotNameTextField.text isEqualToString:@""]) {
         errorStr = [errorStr stringByAppendingString: @"\nEnter Spot Name"];
         result = NO;
     }
-    if ([self.performerNameTextField.text isEqualToString:@""]){
+    if ([self.performerNameTextField.text isEqualToString:@""]) {
         errorStr = [errorStr stringByAppendingString: @"\nEnter Who did the trick"];
+        result = NO;
+    }
+    if(!CLLocationCoordinate2DIsValid(self.location)) {
+        errorStr = [errorStr stringByAppendingString: @"\nEnter spot location"];
         result = NO;
     }
     if(result == NO){

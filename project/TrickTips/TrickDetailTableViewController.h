@@ -17,5 +17,4 @@
 @property (weak, nonatomic) IBOutlet UILabel *publishedTextField;
 @property (weak, nonatomic) IBOutlet UILabel *additionalInfoTextField;
 @property (strong, nonatomic)  Trick *trick;
-- (IBAction)seeOnMapButtonClicked:(id)sender;
 @end
