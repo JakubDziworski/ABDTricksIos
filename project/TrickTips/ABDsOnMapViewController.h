@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "SkateSpot.h"
 #import <MapKit/MapKit.h>
-
-@interface ABDsOnMapViewController : UIViewController <MKMapViewDelegate>
+#import "TrickDataBaseManager.h"
+@interface ABDsOnMapViewController : UIViewController <MKMapViewDelegate,TrickDataBaseDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 - (void) focusOnSpot:(SkateSpot *)skateSpot;
 

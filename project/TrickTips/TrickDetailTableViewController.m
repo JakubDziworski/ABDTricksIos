@@ -18,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"MMM dd, yyyy HH:mm"];
     NSString *dateString = [format stringFromDate:self.trick.dateAdded];
@@ -28,7 +29,6 @@
     self.spotNameTextField.text = self.trick.skateSpot.name;
     self.publishedTextField.text = self.trick.whereToSee;
     self.additionalInfoTextField.text = self.trick.additonalInfo;
-    
 }
 
 - (void)didReceiveMemoryWarning {

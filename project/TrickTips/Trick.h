@@ -18,6 +18,7 @@
 @property NSString *additonalInfo;
 @property NSDate *date;
 @property NSDate *dateAdded;
+@property NSString *parseID;
 @property SkateSpot* skateSpot;
 
 -(id) initWithName:(NSString *)name_

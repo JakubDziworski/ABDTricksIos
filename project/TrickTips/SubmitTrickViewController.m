@@ -19,42 +19,15 @@
 
 @implementation SubmitTrickViewController
 
-- (void)generateData
-{
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // Add code here to do background processing
-        //
-        //
-        NSError* err = nil;
-        self.data = [[NSMutableArray alloc] init];
-        NSMutableArray *companyData = [[NSMutableArray alloc] init];
-        NSString* dataPath = [[NSBundle mainBundle] pathForResource:@"sample_data" ofType:@"json"];
-        NSArray* contents = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:dataPath] options:kNilOptions error:&err];
-        dispatch_async( dispatch_get_main_queue(), ^{
-            // Add code here to update the UI/send notifications based on the
-            // results of the background processing
-            [contents enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                [self.data addObject:[NSDictionary dictionaryWithObjectsAndKeys:[[obj objectForKey:@"first_name"] stringByAppendingString:[NSString stringWithFormat:@" %@", [obj objectForKey:@"last_name"]]], @"DisplayText", [obj objectForKey:@"email"], @"DisplaySubText",obj,@"CustomObject", nil]];
-                [companyData addObject:[NSDictionary dictionaryWithObjectsAndKeys:[obj objectForKey:@"company_name"], @"DisplayText", [obj objectForKey:@"address"], @"DisplaySubText",obj,@"CustomObject", nil]];
-            }];
-        });
-    });
-}
-
-- (NSArray *)dataForPopoverInTextField:(AutocompletedTextField *)textField
-{
-    NSDictionary *elem1 = [NSDictionary dictionaryWithObjectsAndKeys:@"someText",@"DisplayText", nil];
-    return [[NSMutableArray alloc] initWithObjects:elem1, nil];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.location = kCLLocationCoordinate2DInvalid;
-    [self generateData];
     self.trickNameTextField.delegate = self;
     self.performerNameTextField.delegate = self;
     self.spotNameTextField.delegate = self;
     self.wherePublishedTextField.delegate = self;
     self.additionalInfoTextField.delegate = self;
+    
 }
 
 - (void)didReceiveMemoryWarning {

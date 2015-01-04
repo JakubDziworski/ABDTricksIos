@@ -10,6 +10,7 @@
 #import <CoreLocation/CLLocation.h>
 @interface SkateSpot : NSObject
 @property NSString *name;
+@property NSString *parseId;
 @property CLLocationCoordinate2D location;
 
 -(id) initWithName:(NSString *) name_

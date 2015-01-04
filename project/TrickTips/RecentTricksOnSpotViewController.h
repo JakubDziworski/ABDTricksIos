@@ -8,7 +8,7 @@
 
 #import "HistoryTableViewController.h"
 #import "SkateSpot.h"
-@interface RecentTricksOnSpotViewController : HistoryTableViewController
+@interface RecentTricksOnSpotViewController : HistoryTableViewController 
 @property (weak, nonatomic) IBOutlet UINavigationItem *titleItem;
 @property SkateSpot *spot;
 @property NSMutableArray *tricksDoneOnSpot;

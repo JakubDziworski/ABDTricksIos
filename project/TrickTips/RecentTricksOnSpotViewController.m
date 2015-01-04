@@ -19,16 +19,21 @@
     [super viewDidLoad];
     self.titleItem.title = self.spot.name;
 }
-
--(NSArray*) populateData {
-    NSMutableArray *arr = [[NSMutableArray alloc] init];
-    for(Trick* trick in [TrickDataBaseManager sharedInstance].tricks) {
-        if(trick.skateSpot != self.spot)
-        {
-            [arr addObject:trick];
+- (void) onFetchedTrick:(Trick *)trick
+{
+    if(trick.skateSpot != self.spot) return;
+    [self.tableData addObject:trick];
+    [self.tableView reloadData];
+}
+- (void) onFetched:(NSArray *)trickList {
+    if(self.tableData.count == 0) {
+        for(Trick *trick in trickList) {
+            if(trick.skateSpot == self.spot) {
+                [self.tableData addObject:trick];
+            }
         }
+        [self.tableView reloadData];
     }
-    return arr;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

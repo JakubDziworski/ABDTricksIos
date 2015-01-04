@@ -14,23 +14,31 @@
 #import "NSDate+TimeAgo.h"
 
 @interface HistoryTableViewController ()
-
+@property UIActivityIndicatorView *activityView;
 @end
 
 @implementation HistoryTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     if(!self.tableData) {
-        self.tableData = [self populateData];
+        self.tableData = [[NSMutableArray alloc] init];
+        [self populateData];
     }
 }
-
--(NSArray*) populateData {
-    NSMutableArray *arr = [[NSMutableArray alloc] init];
-    [arr addObjectsFromArray: [TrickDataBaseManager sharedInstance].tricks];
-    return arr;
+-(void) populateData {
+    [[TrickDataBaseManager sharedInstance] fetchLatestWithTarget:self];
+}
+- (void) onFetchedTrick:(Trick *)trick
+{
+    [self.tableData addObject:trick];
+    [self.tableView reloadData];
+}
+- (void) onFetched:(NSArray *)trickList {
+    if(self.tableData.count == 0) {
+        [self.tableData addObjectsFromArray:trickList];
+        [self.tableView reloadData];
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -47,6 +55,31 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
+    if(self.tableData.count == 0 ){
+        if(self.activityView == nil){
+            self.activityView=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            self.activityView.center= CGPointMake(self.view.center.x,self.view.center.y-self.view.bounds.size.height/2.0+25);
+            [self.activityView startAnimating];
+            [self.view addSubview:self.activityView];
+        }
+    }
+    else {
+        [UIView animateWithDuration:0.3
+                              delay:0.0
+                            options: UIViewAnimationCurveEaseIn
+                         animations:^
+         {
+             CGRect frame = self.activityView.frame;
+             frame.origin.x = (-100);
+             self.activityView.frame = frame;
+         }
+                         completion:^(BOOL finished)
+         {
+             NSLog(@"Completed");
+             
+         }];
+       
+    }
     return [self.tableData count];
 }
 

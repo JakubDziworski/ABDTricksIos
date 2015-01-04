@@ -63,8 +63,8 @@
     [super viewDidLoad];
     self.spotzz = [[SpotAnnotationMap alloc]init];
     self.mapView.delegate=self;
-    [self preparePins];
-    if(self.focusedSpot) [self executeFocusingOnSpot];
+    [[TrickDataBaseManager sharedInstance] fetchLatestWithTarget:self];
+    
     
     // Do any additional setup after loading the view.
 }
@@ -74,10 +74,10 @@
     // Dispose of any resources that can be recreated.
     
 }
-
-- (void) preparePins {
-    NSArray *tricks = [TrickDataBaseManager sharedInstance].tricks;
-    NSArray *spots = [tricks valueForKeyPath:@"@distinctUnionOfObjects.skateSpot"];
+- (void) onFetched:(NSArray *)trickList {
+    NSMutableArray *trickzs = [[NSMutableArray alloc] init];
+    [trickzs addObjectsFromArray:trickList];
+    id spots = [trickzs valueForKeyPath:@"@distinctUnionOfObjects.skateSpot"];
     for(SkateSpot *spot in spots) {
         MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
         point.coordinate = spot.location;
@@ -85,6 +85,10 @@
         [self.spotzz addSkateSpot:spot andAdnot:point];
         [self.mapView addAnnotation:point];
     }
+    if(self.focusedSpot) [self executeFocusingOnSpot];
+}
+- (void) onFetchedTrick:(Trick *)trick {
+
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
@@ -113,10 +117,9 @@
 -(void) executeFocusingOnSpot {
     MKPointAnnotation *annotation = [self.spotzz annotationForSpot:self.focusedSpot];
     MKMapPoint pt = MKMapPointForCoordinate(annotation.coordinate);
-    MKMapRect r= MKMapRectMake(pt.x, pt.y, 200, 200);
-    //r.origin.x = pt.x - r.size.width*0.5;
-    //r.origin.y = pt.y - r.size.height*0.25;
+    MKMapRect r= MKMapRectMake(pt.x-500, pt.y-500, 1000,1000);
     [self.mapView setVisibleMapRect:r animated:YES];
+    [self.mapView selectAnnotation:annotation animated:YES];
 }
 /*
 #pragma mark - Navigation

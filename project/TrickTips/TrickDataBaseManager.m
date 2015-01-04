@@ -9,64 +9,77 @@
 #import "TrickDataBaseManager.h"
 #import "Trick.h"
 #import <Parse/Parse.h>
+@interface TrickDataBaseManager()
+@property(strong) NSMutableArray *latestTricks;
+@end
 
 @implementation TrickDataBaseManager
 
-@synthesize tricks = _tricks;
 + (TrickDataBaseManager *)sharedInstance {
     static TrickDataBaseManager *sharedInstance = nil;
     static dispatch_once_t onceToken; // onceToken = 0
     dispatch_once(&onceToken, ^{
         sharedInstance = [[TrickDataBaseManager alloc] init];
+        sharedInstance.latestTricks = [[NSMutableArray alloc]init];
     });
     return sharedInstance;
 }
-
-- (void) fetchData {
-    NSUInteger limit = 100;
-    __block NSUInteger skip = 0;
+- (void) fetchLatestSpotsWithTarget:(id<TrickDataBaseDelegate>)target {
+    if(self.latestTricks.count > 0){
+        [target onFetched:[self.latestTricks valueForKeyPath:@"@distinctUnionOfObjects.skateSpot"]];
+    }
+}
+- (void) fetchLatestWithTarget: (id<TrickDataBaseDelegate>)target {
+    if(self.latestTricks.count > 0) {
+        [target onFetched:self.latestTricks];
+        return;
+    }
+    NSUInteger limit = 25;
     PFQuery *query = [PFQuery queryWithClassName:@"Trick"];
+    query.limit = limit;
     [query orderByDescending:@"createdAt"];
-    [query setSkip: skip];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            // The find succeeded. Add the returned objects to allObjects
             for(PFObject *obj in objects){
-                [self convertPFObjectToTrick:obj];
+                Trick *trick = [self convertPFObjectToTrick:obj];
+                [self.latestTricks addObject:trick];
+                [target onFetchedTrick:trick];
             }
-            if (objects.count == limit) {
-                // There might be more objects in the table. Update the skip value and execute the query again.
-                skip += limit;
-                [query setSkip: skip];
-                [query findObjectsInBackgroundWithBlock:nil];
-                 }
-                 
-                 } else {
-                     // Log details of the failure
-                     NSLog(@"Error: %@ %@", error, [error userInfo]);
-                 }
-                 }];
-}
-- (void) convertPFObjectToTrick: (PFObject* )pfTrick {
-    SkateSpot *spot = [[SkateSpot alloc]init];
-    PFObject *pfSpot = [pfTrick objectForKey:@"skateSpot"];
-    [pfSpot fetchIfNeededInBackgroundWithBlock:^(PFObject *pSpot, NSError *error) {
-        Trick *trick = [[Trick alloc] init];
-        spot.name = [pSpot objectForKey:@"name"];
-        PFGeoPoint *location = [pSpot objectForKey:@"location"];
-        spot.location = [[CLLocation alloc]initWithLatitude:location.latitude longitude:location.longitude].coordinate;
-        trick.name = [pfTrick objectForKey:@"name"];
-        trick.performer = [pfTrick objectForKey:@"performer"];
-        trick.whereToSee = [pfTrick objectForKey:@"whereToSee"];
-        trick.additonalInfo = [pfTrick objectForKey:@"additionalInfo"];
-        trick.skateSpot = spot;
-        trick.dateAdded = pfTrick.createdAt;
-        [self onFetchedTrick:trick];
+            [target onFetched:self.latestTricks];
+            NSLog(@"Finished fetching %d tricks",[query countObjects]);
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
     }];
 }
+- (void) fetchClosestToPoint: (CLLocationCoordinate2D)location andTarget:(id<TrickDataBaseDelegate>)target{
+    //TO DO
+    [self fetchLatestWithTarget:target];
+}
 
-- (void) onFetchedTrick: (Trick *)trick {
-    [self.tricks addObject:trick];
+- (Trick*) convertPFObjectToTrick: (PFObject* )pfTrick {
+    Trick *trick = [[Trick alloc] init];
+    trick.name = [pfTrick objectForKey:@"name"];
+    trick.performer = [pfTrick objectForKey:@"performer"];
+    trick.whereToSee = [pfTrick objectForKey:@"whereToSee"];
+    trick.additonalInfo = [pfTrick objectForKey:@"additionalInfo"];
+    trick.dateAdded = pfTrick.createdAt;
+    trick.parseID = [pfTrick objectId];
+    PFObject *pfSpot = [pfTrick objectForKey:@"skateSpot"];
+    for(SkateSpot* spot in [self.latestTricks valueForKeyPath:@"@distinctUnionOfObjects.skateSpot"]) {
+        if([spot.parseId isEqualToString:[pfSpot objectId]]) {
+            trick.skateSpot = spot;
+            return trick;
+        }
+    }
+    SkateSpot *spot = [[SkateSpot alloc]init];
+    [pfSpot fetchIfNeeded];
+    spot.name = [pfSpot objectForKey:@"name"];
+    spot.parseId = [pfSpot objectId];
+    PFGeoPoint *location = [pfSpot objectForKey:@"location"];
+    spot.location = [[CLLocation alloc]initWithLatitude:location.latitude longitude:location.longitude].coordinate;
+    trick.skateSpot = spot;
+    return trick;
 }
 
 - (PFObject *) convertTrickToPfObject: (Trick *) trick {
@@ -82,7 +95,6 @@
     return pfTrick;
 }
 - (void) addTrick:(Trick *)trick_ {
-    [_tricks addObject:trick_];
     PFObject *obj = [self convertTrickToPfObject:trick_];
     [obj saveInBackground];
 }
@@ -90,8 +102,7 @@
 {
     if(self = [super init])
     {
-        _tricks = [[NSMutableArray alloc]init];
-        [self fetchData];
+        
         return self;
     }
     return nil;

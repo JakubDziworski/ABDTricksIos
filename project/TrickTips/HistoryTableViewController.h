@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TrickDataBaseManager.h"
 
-@interface HistoryTableViewController : UITableViewController <UITableViewDelegate,UITableViewDataSource>
+@interface HistoryTableViewController : UITableViewController <UITableViewDelegate,UITableViewDataSource,TrickDataBaseDelegate>
 
-@property (strong,nonatomic) NSArray *tableData;
--(NSArray*) populateData;
+@property (strong,nonatomic) NSMutableArray *tableData;
+-(void) populateData;
 @end
