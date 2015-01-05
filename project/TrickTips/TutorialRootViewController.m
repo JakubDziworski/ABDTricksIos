@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _pageTitles = @[@"Welcome to ABD Tricks", @"Browse recent Tricks", @"Submit your own Tricks",@"Check out spot map", @"Read ABDs details ",@""];
+    _pageTitles = @[@"", @"Browse recent Tricks", @"Submit your own Tricks",@"Check out spot map", @"Read ABDs details ",@""];
     _pageImages = @[@"",@"recent", @"submit", @"witos",@"detail",@""];
     
     // Create page view controller
@@ -27,7 +27,7 @@
     TutorialContentViewController *startingViewController = [self viewControllerAtIndex:0];
     NSArray *viewControllers = @[startingViewController];
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-    
+
     [self addChildViewController:_pageViewController];
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
@@ -35,12 +35,26 @@
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
     if(!completed) return;
     TutorialContentViewController *currentView = [pageViewController.viewControllers objectAtIndex:0];
+    TutorialContentViewController *prevView = [previousViewControllers objectAtIndex:0];
+    
+    UILabel *prevAnimatedText = prevView.titleLabel;
+    prevAnimatedText.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    
+    UIImageView *prevImgView = prevView.backgroundImageView;
+    prevImgView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    
+    UIImageView *imgView = currentView.backgroundImageView;
+    [self animIn:imgView];
+    
+    UILabel *animatedTextField = currentView.titleLabel;
+    [self animIn:animatedTextField];
+    
     if(currentView.isLast){
         UIButton *animatedButton = currentView.startBtn;
         if(!animatedButton.isHidden) return;
         [animatedButton setHidden:NO];
-        animatedButton.transform = CGAffineTransformMakeScale(0.01, 0.01);
-        [UIView animateWithDuration:0.4 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{animatedButton.transform = CGAffineTransformIdentity;} completion:nil];
+        [self animIn:animatedButton];
+        
     }
 
 }
@@ -49,6 +63,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) animIn:(UIView*)view {
+    view.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{view.transform = CGAffineTransformIdentity;} completion:nil];
+}
 - (TutorialContentViewController *)viewControllerAtIndex:(NSUInteger)index
 {
     if (([self.pageTitles count] == 0) || (index >= [self.pageTitles count])) {

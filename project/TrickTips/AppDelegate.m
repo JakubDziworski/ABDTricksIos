@@ -34,6 +34,22 @@
     pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
     pageControl.backgroundColor = [UIColor whiteColor];
     
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    UIViewController *viewController;
+    if (![@"1" isEqualToString:[[NSUserDefaults standardUserDefaults]
+                                objectForKey:@"tutorialDisplayed"]]) {
+        [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:@"tutorialDisplayed"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        UITabBarController *tutPage = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"tutorialViewControl"];
+        viewController = tutPage;
+    }
+    else {
+        UITabBarController *firstPage = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainTapBar"];
+        viewController = firstPage;
+    }
+    
+    self.window.rootViewController = viewController;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

@@ -28,6 +28,11 @@
     if(![self.imageFile isEqualToString:@""]) {
         self.backgroundImageView.image = [UIImage imageNamed:self.imageFile];
     }
+    if(self.pageIndex == 0) {
+        [self.welcomeLabel setHidden:NO];
+    }
+    self.titleLabel.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    self.backgroundImageView.transform = CGAffineTransformMakeScale(0.01, 0.01);
     self.titleLabel.text = self.titleText;
 }
 

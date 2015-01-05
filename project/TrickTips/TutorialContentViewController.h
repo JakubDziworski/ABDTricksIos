@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *startBtn;
+@property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
 @property NSUInteger pageIndex;
 @property NSString *titleText;
 @property NSString *imageFile;
