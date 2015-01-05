@@ -18,10 +18,10 @@
 
 @interface TrickDataBaseManager : NSObject
 
+@property BOOL isCloudReachable;
 + (TrickDataBaseManager *)sharedInstance;
 - (void) addTrick:(Trick *) trick_;
-- (void) fetchLatestSpotsWithTarget:(id<TrickDataBaseDelegate>)target;
-- (void) fetchLatestWithTarget: (id<TrickDataBaseDelegate>)target;
-- (void) fetchClosestToPoint: (CLLocationCoordinate2D)location andTarget:(id<TrickDataBaseDelegate>)target;
+- (void) fetchWithTarget: (id<TrickDataBaseDelegate>)target;
+
 //- (void) addSpot:(SkateSpot *) spot_;
 @end

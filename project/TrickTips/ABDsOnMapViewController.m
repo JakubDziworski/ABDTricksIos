@@ -64,7 +64,7 @@
     [super viewDidLoad];
     self.spotzz = [[SpotAnnotationMap alloc]init];
     self.mapView.delegate=self;
-    [[TrickDataBaseManager sharedInstance] fetchLatestWithTarget:self];
+    [[TrickDataBaseManager sharedInstance] fetchWithTarget:self];
     // Do any additional setup after loading the view.
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0Bz-Gi-Y84">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="42b-2M-NgS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -794,6 +794,99 @@
             </objects>
             <point key="canvasLocation" x="171" y="1191"/>
         </scene>
+        <!--Page View Controller-->
+        <scene sceneID="51C-6Y-cwx">
+            <objects>
+                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="yZD-GH-FTX" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qk3-Mg-viE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1412" y="699"/>
+        </scene>
+        <!--Tutorial Content View Controller-->
+        <scene sceneID="nGB-60-Zeo">
+            <objects>
+                <viewController storyboardIdentifier="PageContentViewController" id="Kjb-0U-m0W" customClass="TutorialContentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FZA-X6-VEy"/>
+                        <viewControllerLayoutGuide type="bottom" id="EIk-a2-YZf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ev2-Ny-dLp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uh2-pq-vAN">
+                                <rect key="frame" x="125" y="20" width="350" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="350" id="Wiq-0t-pzv"/>
+                                    <constraint firstAttribute="height" constant="50" id="n71-cv-pnX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oxX-7w-OGq">
+                                <rect key="frame" x="264" y="273" width="74" height="54"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <state key="normal" title="Start">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onStartBtnclicked:" destination="Kjb-0U-m0W" eventType="touchUpInside" id="oyi-E7-HW0"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SzW-F5-11C">
+                                <rect key="frame" x="269" y="285" width="62" height="30"/>
+                                <state key="normal" title="Continue">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XrB-MG-P61">
+                                <rect key="frame" x="0.0" y="70" width="600" height="530"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="SzW-F5-11C" secondAttribute="centerX" id="5fM-G3-IoQ"/>
+                            <constraint firstAttribute="centerX" secondItem="uh2-pq-vAN" secondAttribute="centerX" id="AiT-Bq-Pyw"/>
+                            <constraint firstAttribute="trailing" secondItem="XrB-MG-P61" secondAttribute="trailing" id="BCh-Ro-jY5"/>
+                            <constraint firstItem="XrB-MG-P61" firstAttribute="top" secondItem="uh2-pq-vAN" secondAttribute="bottom" id="EVZ-CV-iZR"/>
+                            <constraint firstItem="EIk-a2-YZf" firstAttribute="top" secondItem="XrB-MG-P61" secondAttribute="bottom" id="Hco-SA-45e"/>
+                            <constraint firstAttribute="centerY" secondItem="SzW-F5-11C" secondAttribute="centerY" id="L7Q-4u-pG0"/>
+                            <constraint firstAttribute="centerX" secondItem="XrB-MG-P61" secondAttribute="centerX" id="OgY-Ks-15O"/>
+                            <constraint firstItem="XrB-MG-P61" firstAttribute="leading" secondItem="Ev2-Ny-dLp" secondAttribute="leading" id="av6-XY-plW"/>
+                            <constraint firstAttribute="centerY" secondItem="oxX-7w-OGq" secondAttribute="centerY" id="dqi-pV-3X7"/>
+                            <constraint firstItem="uh2-pq-vAN" firstAttribute="top" secondItem="FZA-X6-VEy" secondAttribute="bottom" id="oeq-ci-pgN"/>
+                            <constraint firstAttribute="centerX" secondItem="oxX-7w-OGq" secondAttribute="centerX" id="wyE-uB-RXW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="XrB-MG-P61" id="4eQ-6F-Iiu"/>
+                        <outlet property="startBtn" destination="oxX-7w-OGq" id="RKT-xe-eAb"/>
+                        <outlet property="titleLabel" destination="uh2-pq-vAN" id="7kx-W2-9Sj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nbs-Mr-Ce4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1472" y="1540"/>
+        </scene>
+        <!--Tutorial Root View Controller-->
+        <scene sceneID="pqa-46-tcg">
+            <objects>
+                <viewController id="42b-2M-NgS" customClass="TutorialRootViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Xou-bc-GqA"/>
+                        <viewControllerLayoutGuide type="bottom" id="dli-ev-aie"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mUx-CB-aQq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Urh-Aw-6PX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2222" y="1268"/>
+        </scene>
         <!--Home Screen View Controller-->
         <scene sceneID="Jcw-c9-HPQ">
             <objects>
@@ -828,9 +921,6 @@
                                         <state key="normal" title="Go Offline">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <connections>
-                                            <segue destination="TZe-KO-EYS" kind="show" identifier="goToTabBarSegue" id="ahO-Rl-RVS"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.056105551125761759" green="0.62072939415500339" blue="0.84288194444444442" alpha="1" colorSpace="calibratedRGB"/>
@@ -922,7 +1012,7 @@
         <image name="znaczek" width="323" height="156"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LTW-a4-qD9"/>
+        <segue reference="msj-nK-6lF"/>
         <segue reference="qWF-am-3ZV"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -27,7 +27,7 @@
     }
 }
 -(void) populateData {
-    [[TrickDataBaseManager sharedInstance] fetchLatestWithTarget:self];
+    [[TrickDataBaseManager sharedInstance] fetchWithTarget:self];
 }
 - (void) onFetchedTrick:(Trick *)trick
 {

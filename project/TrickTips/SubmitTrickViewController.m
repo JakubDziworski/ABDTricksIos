@@ -71,6 +71,11 @@
     
     NSString *errorStr =  @"";
     BOOL result = YES;
+    if(![TrickDataBaseManager sharedInstance].isCloudReachable) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Connect to internet!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
     if ([self.trickNameTextField.text isEqualToString:@""]) {
         errorStr = [errorStr stringByAppendingString: @"Enter Trick Name"];
         result = NO;

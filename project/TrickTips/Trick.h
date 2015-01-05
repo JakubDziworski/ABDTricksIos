@@ -9,24 +9,20 @@
 #import <Foundation/Foundation.h>
 #import "SkateSpot.h"
 
-@interface Trick : NSObject
+@interface Trick : NSObject <NSCoding>
 
 @property NSString *name;
 @property NSString *performer;
-@property NSString *submitter;
 @property NSString *whereToSee;
 @property NSString *additonalInfo;
-@property NSDate *date;
 @property NSDate *dateAdded;
 @property NSString *parseID;
 @property SkateSpot* skateSpot;
 
 -(id) initWithName:(NSString *)name_
          performer:(NSString *)performer_
-         submitter:(NSString *)submitter_
        whereTosSee:(NSString *)whereToSee_
     additionalInfo:(NSString *)additionalInfo
-              date:(NSDate *)date_
          skateSpot:(SkateSpot *)skatespot_;
 
 @end
