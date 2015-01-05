@@ -93,7 +93,7 @@
     Trick *trick = (Trick*)[self.tableData objectAtIndex:indexPath.row];
     
     postTime.text = [trick.dateAdded timeAgo];
-    postContent.text = [NSString stringWithFormat:@"'%@' did '%@'" ,trick.performer,trick.name];
+    postContent.text = [NSString stringWithFormat:@"'%@' did '%@' at '%@'" ,trick.performer,trick.name,trick.skateSpot.name];
     return cell;
 }
 

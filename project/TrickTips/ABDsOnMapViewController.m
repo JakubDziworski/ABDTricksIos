@@ -118,7 +118,8 @@
 -(void) executeFocusingOnSpot {
     MKPointAnnotation *annotation = [self.spotzz annotationForSpot:self.focusedSpot];
     MKMapPoint pt = MKMapPointForCoordinate(annotation.coordinate);
-    MKMapRect r= MKMapRectMake(pt.x-500, pt.y-500, 1000,1000);
+    double factor = 30000;
+    MKMapRect r= MKMapRectMake(pt.x-factor*0.5, pt.y-factor*0.5,factor,factor);
     [self.mapView setVisibleMapRect:r animated:YES];
     [self.mapView selectAnnotation:annotation animated:YES];
 }
